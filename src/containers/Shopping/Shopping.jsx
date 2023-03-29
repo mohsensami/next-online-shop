@@ -5,6 +5,7 @@ import Controls from '../../components/Controls/Controls';
 import Modal from '../../components/UI/Modal/Modal';
 import Order from '../../components/Order/Order';
 import axios from '../../axios-orders';
+import Loading from '../../components/UI/Loading/Loading';
 
 const prices = {
     product1: 59,
@@ -23,6 +24,7 @@ class Shopping extends React.Component {
         },
         totalPrice: 0,
         purchased: false,
+        loading: false,
     };
 
     addProductHandler = (type) => {
@@ -60,6 +62,7 @@ class Shopping extends React.Component {
     };
 
     purchaseContinueHandler = () => {
+        this.setState({ loading: true });
         const data = {
             products: this.state.products,
             totalprice: this.state.totalPrice,
@@ -71,18 +74,22 @@ class Shopping extends React.Component {
         axios
             .post('/orders.json', data)
             .then((res) => {
-                console.log(res);
+                this.setState({ loading: false, purchased: false });
             })
             .catch((err) => {
-                console.log(err);
+                this.setState({ loading: false, purchased: false });
             });
     };
 
     render() {
+        let order = <Order products={this.state.products} price={this.state.totalPrice} continue={this.purchaseContinueHandler} cancel={this.modalCloseHandler} />;
+        if (this.state.loading) {
+            order = <Loading />;
+        }
         return (
             <Wrapper>
                 <Modal show={this.state.purchased} modalClose={this.modalCloseHandler}>
-                    <Order products={this.state.products} price={this.state.totalPrice} continue={this.purchaseContinueHandler} cancel={this.modalCloseHandler} />
+                    {order}
                 </Modal>
                 <Controls productAdd={this.addProductHandler} productRemove={this.removeProductHandler} price={this.state.totalPrice} order={this.purchasedHandler} />
             </Wrapper>
