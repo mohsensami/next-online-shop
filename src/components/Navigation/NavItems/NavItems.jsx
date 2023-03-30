@@ -1,16 +1,16 @@
-import React from 'react'
+import React from 'react';
 
-import NavItem from '../NavItem/NavItem'
+import NavItem from '../NavItem/NavItem';
 
-import './NavItems.css'
+import './NavItems.css';
 
 const NavItems = () => {
-  return (
-    <ul className="nav-items">
-      <NavItem link="/">Shopping</NavItem>
-      <NavItem link="/">Checkout</NavItem>
-    </ul>
-  )
-}
+    return (
+        <ul className="nav-items">
+            <NavItem link="/">Shopping</NavItem>
+            <NavItem link="/account">Account</NavItem>
+        </ul>
+    );
+};
 
-export default NavItems
+export default NavItems;

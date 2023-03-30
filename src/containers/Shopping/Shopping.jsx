@@ -63,6 +63,7 @@ class Shopping extends React.Component {
     };
 
     purchaseContinueHandler = () => {
+        // this.props.history.push('/checkout');
         this.setState({ loading: true });
         const data = {
             products: this.state.products,
@@ -90,8 +91,22 @@ class Shopping extends React.Component {
         }
         let controls = <Loading />;
         if (this.state.products) {
-            controls = <Controls productAdd={this.addProductHandler} productRemove={this.removeProductHandler} price={this.state.totalPrice} order={this.purchasedHandler} />;
-            order = <Order products={this.state.products} price={this.state.totalPrice} continue={this.purchaseContinueHandler} cancel={this.modalCloseHandler} />;
+            controls = (
+                <Controls
+                    productAdd={this.addProductHandler}
+                    productRemove={this.removeProductHandler}
+                    price={this.state.totalPrice}
+                    order={this.purchasedHandler}
+                />
+            );
+            order = (
+                <Order
+                    products={this.state.products}
+                    price={this.state.totalPrice}
+                    continue={this.purchaseContinueHandler}
+                    cancel={this.modalCloseHandler}
+                />
+            );
         }
         return (
             <Wrapper>
