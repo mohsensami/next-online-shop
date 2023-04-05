@@ -1,26 +1,21 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import React from 'react'
+import { Container } from 'react-bootstrap'
 
-import Layout from './components/Layout/Layout';
-import Shopping from './containers/Shopping/Shopping';
-import Account from './containers/Account/Account';
+import Header from './components/Header/Header'
+import Footer from './components/Footer/Footer'
 
-class App extends React.Component {
-    render() {
-        return (
-            <Router>
-                <div>
-                    <Layout>
-                        <Routes>
-                            <Route exact path="/" element={<Shopping />} />
-                            <Route path="/account" element={<Account />} />
-                            <Route path="*" element={<h2 style={{ textAlign: 'center' }}>Not Found</h2>} />
-                        </Routes>
-                    </Layout>
-                </div>
-            </Router>
-        );
-    }
+const App = () => {
+  return (
+    <div>
+      <Header />
+      <main className="py-3">
+        <Container>
+          <h2>FC Market</h2>
+        </Container>
+      </main>
+      <Footer />
+    </div>
+  )
 }
 
-export default App;
+export default App
