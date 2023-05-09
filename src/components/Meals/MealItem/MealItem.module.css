@@ -10,7 +10,12 @@
 }
 
 .meal h3 {
-    margin: 0 0 0.25rem 0;
+    margin: 0 0 20px 0;
+    cursor: pointer;
+}
+
+.meal h3:hover {
+    color: #bd110f;
 }
 
 .description {
@@ -22,4 +27,22 @@
     font-weight: bold;
     color: rgb(189, 17, 15);
     font-size: 1.25rem;
+}
+
+.center {
+    text-align: center;
+}
+.close {
+    font: inherit;
+    cursor: pointer;
+    background-color: #bd110f;
+    border: 1px solid rgb(189, 17, 15);
+    color: white;
+    padding: 0.25rem 2rem;
+    border-radius: 20px;
+    font-weight: bold;
+}
+.close:hover {
+    background-color: rgb(235, 75, 72);
+    border-color: rgb(235, 75, 72);
 }

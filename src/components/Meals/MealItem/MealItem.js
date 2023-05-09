@@ -28,18 +28,20 @@ const MealItem = (props) => {
     return (
         <li className={classes.meal}>
             <div>
-                <h3 onClick={() => modalHandler(props.id)}>{props.name}</h3>
+                <h3 onClick={() => modalHandler(props.id)}>{props.name.slice(0, 50)}</h3>
                 {showModal && (
                     <Modal>
                         <div>
                             <h3>{product.title}</h3>
-                            <div>
+                            <div className={classes.center}>
                                 <img width="300" src={product.image} alt={product.title} />
                             </div>
                         </div>
+                        <div>{product.description}</div>
                         <div>
-                            {product.title}
-                            <button onClick={() => setShowModal(false)}>Close</button>
+                            <button className={classes.close} onClick={() => setShowModal(false)}>
+                                Close
+                            </button>
                         </div>
                     </Modal>
                 )}
