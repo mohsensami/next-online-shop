@@ -11,7 +11,7 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-// import GlobalApi from '../_utils/GlobalApi';
+import GlobalApi from '../_utils/GlobalApi';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 // import { UpdateCartContext } from '../_context/UpdateCartContext';
@@ -43,9 +43,9 @@ function Header() {
     // const { updateCart, setUpdateCart } = useContext(UpdateCartContext);
     const [cartItemList, setCartItemList] = useState([]);
     const router = useRouter();
-    // useEffect(() => {
-    //     getCategoryList();
-    // }, []);
+    useEffect(() => {
+        getCategoryList();
+    }, []);
 
     // useEffect(() => {
     //     getCartItems();
@@ -54,11 +54,11 @@ function Header() {
     /**
      * Get Category List
      */
-    // const getCategoryList = () => {
-    //     GlobalApi.getCategory().then((resp) => {
-    //         setCategoryList(resp.data.data);
-    //     });
-    // };
+    const getCategoryList = () => {
+        GlobalApi.getCategory().then((resp) => {
+            setCategoryList(resp.data.data);
+        });
+    };
 
     /**
      * Used to get Total Cart Item
@@ -116,7 +116,10 @@ function Header() {
                             <Link key={index} href={'/products-category/' + category.attributes.name}>
                                 <DropdownMenuItem className="flex gap-4 items-center cursor-pointer">
                                     <Image
-                                        src={category?.attributes?.icon?.data?.attributes?.url}
+                                        src={
+                                            'http://localhost:1337' +
+                                            category?.attributes?.icon?.data[0]?.attributes?.url
+                                        }
                                         unoptimized={true}
                                         alt="icon"
                                         width={30}
