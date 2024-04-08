@@ -26,14 +26,14 @@ import {
 } from '@/components/ui/sheet';
 // import CartItemList from './CartItemList';
 import { toast } from 'sonner';
-// import { deleteCookie, getCookie } from 'cookies-next';
-// import { useCookies } from 'next-client-cookies'
+import { deleteCookie, getCookie } from 'cookies-next';
+import { useCookies } from 'next-client-cookies';
 
 function Header() {
     // const cookies = useCookies();
 
     const [categoryList, setCategoryList] = useState([]);
-    // const isLogin = getCookie('jwt') ? true : false;
+    const isLogin = getCookie('jwt') ? true : false;
     let user = '';
     try {
         user = JSON.parse(getCookie('user'));
@@ -178,34 +178,31 @@ function Header() {
                     </SheetContent>
                 </Sheet>
 
-                {
-                    // !isLogin
-                    true ? (
-                        <Link href={'/sign-in'}>
-                            <Button>Login</Button>
-                        </Link>
-                    ) : (
-                        <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
-                                <CircleUserRound
-                                    className="bg-green-100
+                {!isLogin ? (
+                    <Link href={'/sign-in'}>
+                        <Button>Login</Button>
+                    </Link>
+                ) : (
+                    <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                            <CircleUserRound
+                                className="bg-green-100
             p-2 rounded-full cursor-pointer
              text-primary h-12 w-12"
-                                />
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent>
-                                <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                                <DropdownMenuSeparator />
-                                <DropdownMenuItem>Profile</DropdownMenuItem>
-                                <Link href={'/my-order'}>
-                                    <DropdownMenuItem>My Order</DropdownMenuItem>
-                                </Link>
+                            />
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent>
+                            <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                            <DropdownMenuSeparator />
+                            <DropdownMenuItem>Profile</DropdownMenuItem>
+                            <Link href={'/my-order'}>
+                                <DropdownMenuItem>My Order</DropdownMenuItem>
+                            </Link>
 
-                                <DropdownMenuItem onClick={() => onSignOut()}>Logout</DropdownMenuItem>
-                            </DropdownMenuContent>
-                        </DropdownMenu>
-                    )
-                }
+                            <DropdownMenuItem onClick={() => onSignOut()}>Logout</DropdownMenuItem>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
+                )}
             </div>
         </div>
     );
