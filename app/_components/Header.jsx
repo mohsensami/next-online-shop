@@ -14,7 +14,7 @@ import {
 import GlobalApi from '../_utils/GlobalApi';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-// import { UpdateCartContext } from '../_context/UpdateCartContext';
+import { UpdateCartContext } from '../_context/UpdateCartContext';
 import {
     Sheet,
     SheetClose,
@@ -30,7 +30,7 @@ import { deleteCookie, getCookie } from 'cookies-next';
 import { useCookies } from 'next-client-cookies';
 
 function Header() {
-    // const cookies = useCookies();
+    const cookies = useCookies();
 
     const [categoryList, setCategoryList] = useState([]);
     const isLogin = getCookie('jwt') ? true : false;
@@ -38,18 +38,18 @@ function Header() {
     try {
         user = JSON.parse(getCookie('user'));
     } catch (e) {}
-    // const jwt = getCookie('jwt');
+    const jwt = getCookie('jwt');
     const [totalCartItem, setTotalCartItem] = useState(0);
-    // const { updateCart, setUpdateCart } = useContext(UpdateCartContext);
+    const { updateCart, setUpdateCart } = useContext(UpdateCartContext);
     const [cartItemList, setCartItemList] = useState([]);
     const router = useRouter();
     useEffect(() => {
         getCategoryList();
     }, []);
 
-    // useEffect(() => {
-    //     getCartItems();
-    // }, [updateCart]);
+    useEffect(() => {
+        getCartItems();
+    }, [updateCart]);
 
     /**
      * Get Category List
@@ -63,12 +63,12 @@ function Header() {
     /**
      * Used to get Total Cart Item
      */
-    // const getCartItems = async () => {
-    //     const cartItemList_ = await GlobalApi.getCartItems(user?.id, jwt);
-    //     console.log(cartItemList_);
-    //     setTotalCartItem(cartItemList_?.length);
-    //     setCartItemList(cartItemList_);
-    // };
+    const getCartItems = async () => {
+        const cartItemList_ = await GlobalApi.getCartItems(user?.id, jwt);
+        console.log(cartItemList_);
+        setTotalCartItem(cartItemList_?.length);
+        setCartItemList(cartItemList_);
+    };
 
     const onSignOut = () => {
         deleteCookie('jwt');
@@ -85,13 +85,13 @@ function Header() {
     };
     const [subtotal, setSubTotal] = useState(0);
 
-    // useEffect(() => {
-    //     let total = 0;
-    //     cartItemList.forEach((element) => {
-    //         total = total + element.amount;
-    //     });
-    //     setSubTotal(total.toFixed(2));
-    // }, [cartItemList]);
+    useEffect(() => {
+        let total = 0;
+        cartItemList.forEach((element) => {
+            total = total + element.amount;
+        });
+        setSubTotal(total.toFixed(2));
+    }, [cartItemList]);
     return (
         <div className="p-5 shadow-sm flex justify-between">
             <div className="flex items-center gap-8">

@@ -6,19 +6,19 @@ import { useRouter } from 'next/navigation';
 import React, { useContext, useState } from 'react';
 import GlobalApi from '../_utils/GlobalApi';
 import { toast } from 'sonner';
-// import { UpdateCartContext } from '../_context/UpdateCartContext';
-// import { getCookie } from 'cookies-next';
-// import { useCookies } from 'next-client-cookies'
+import { UpdateCartContext } from '../_context/UpdateCartContext';
+import { getCookie } from 'cookies-next';
+import { useCookies } from 'next-client-cookies';
 
 function ProductItemDetail({ product }) {
-    // const cookies = useCookies();
+    const cookies = useCookies();
 
-    // const jwt = getCookie('jwt');
+    const jwt = getCookie('jwt');
     let user = '';
     try {
-        // user = JSON.parse(getCookie('user'));
+        user = JSON.parse(getCookie('user'));
     } catch (e) {}
-    // const { updateCart, setUpdateCart } = useContext(UpdateCartContext);
+    const { updateCart, setUpdateCart } = useContext(UpdateCartContext);
     const [productTotalPrice, setProductTotalPrice] = useState(
         product.attributes.sellingPrice ? product.attributes.sellingPrice : product.attributes.mrp
     );
