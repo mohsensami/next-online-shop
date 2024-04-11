@@ -7,6 +7,7 @@ import { usePathname } from 'next/navigation';
 import { UpdateCartContext } from './_context/UpdateCartContext';
 import { useEffect, useState } from 'react';
 import { getCookie, setCookie } from 'cookies-next';
+import { PayPalScriptProvider } from '@paypal/react-paypal-js';
 
 const outfit = Outfit({ subsets: ['latin'] });
 
@@ -27,13 +28,15 @@ export default function RootLayout({ children }) {
         console.log(res);
     }, []);
     return (
-        <html lang="en">
-            <body className={outfit.className}>
-                <UpdateCartContext.Provider value={{ updateCart, setUpdateCart }}>
-                    {children}
-                    <Toaster />
-                </UpdateCartContext.Provider>
-            </body>
-        </html>
+        <PayPalScriptProvider options={{ clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID }}>
+            <html lang="en">
+                <body className={outfit.className}>
+                    <UpdateCartContext.Provider value={{ updateCart, setUpdateCart }}>
+                        {children}
+                        <Toaster />
+                    </UpdateCartContext.Provider>
+                </body>
+            </html>
+        </PayPalScriptProvider>
     );
 }
