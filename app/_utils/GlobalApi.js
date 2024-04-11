@@ -90,7 +90,12 @@ const getMyOrder = (userId, jwt) =>
         .get(
             '/orders?filters[userId][$eq]=' +
                 userId +
-                '&populate[orderItemList][populate][product][populate][images]=url'
+                '&populate[orderItemList][populate][product][populate][images]=url',
+            {
+                headers: {
+                    Authorization: 'Bearer ' + jwt,
+                },
+            }
         )
         .then((resp) => {
             const responce = resp.data.data;
