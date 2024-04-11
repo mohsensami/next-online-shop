@@ -65,27 +65,27 @@ function Checkout() {
     const onApprove = (data) => {
         console.log(data);
 
-        // const payload = {
-        //     data: {
-        //         paymentId: (data?.paymentID).toString(),
-        //         totalOrderAmount: totalAmount,
-        //         username: username,
-        //         email: email,
-        //         phone: phone,
-        //         zip: zip,
-        //         address: address,
-        //         orderItemList: cartItemList,
-        //         userId: user.id,
-        //     },
-        // };
+        const payload = {
+            data: {
+                paymentId: (data?.paymentID).toString(),
+                totalOrderAmount: totalAmount,
+                username: username,
+                email: email,
+                phone: phone,
+                zip: zip,
+                address: address,
+                orderItemList: cartItemList,
+                userId: user.id,
+            },
+        };
 
-        // GlobalApi.createOrder(payload, jwt).then((resp) => {
-        //     toast('Order Places Successfully!');
-        //     cartItemList.forEach((item, index) => {
-        //         GlobalApi.deleteCartItem(item.id).then((resp) => {});
-        //     });
-        //     router.replace('/order-confirmation');
-        // });
+        GlobalApi.createOrder(payload, jwt).then((resp) => {
+            toast('Order Places Successfully!');
+            cartItemList.forEach((item, index) => {
+                GlobalApi.deleteCartItem(item.id).then((resp) => {});
+            });
+            router.replace('/order-confirmation');
+        });
     };
     return (
         <div className="">
