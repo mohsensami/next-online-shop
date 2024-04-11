@@ -24,7 +24,7 @@ import {
     SheetTitle,
     SheetTrigger,
 } from '@/components/ui/sheet';
-// import CartItemList from './CartItemList';
+import CartItemList from './CartItemList';
 import { toast } from 'sonner';
 import { deleteCookie, getCookie } from 'cookies-next';
 import { useCookies } from 'next-client-cookies';
@@ -158,7 +158,7 @@ function Header() {
                                 My Cart
                             </SheetTitle>
                             <SheetDescription>
-                                {/* <CartItemList cartItemList={cartItemList} onDeleteItem={onDeleteItem} /> */}
+                                <CartItemList cartItemList={cartItemList} onDeleteItem={onDeleteItem} />
                             </SheetDescription>
                         </SheetHeader>
                         <SheetClose asChild>
